@@ -35,6 +35,21 @@ jobs:
       - name: Run tests
         run: |
           pytest
+          
+# Job for deployment (example)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Make sure deployment happens only after the build job
 
+    steps:
+      # Step 1: Checkout the code (optional if you already do in the previous job)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up deployment (replace with your deployment logic)
+      - name: Deploy to server
+        run: |
+          echo "Deploying the application..."
+          # Add your deployment commands here
   
 
