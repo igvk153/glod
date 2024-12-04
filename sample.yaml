@@ -1,0 +1,54 @@
+name: CI Pipeline
+
+# Trigger the workflow on push or pull_request events
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Define the jobs in the workflow
+jobs:
+  # Job for setting up the environment and running tests
+  build:
+    runs-on: ubuntu-latest  # Specify the OS for the runner
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Python (or any language you use)
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Step 4: Run tests (replace with your testing command)
+      - name: Run tests
+        run: |
+          pytest
+
+  # Job for deployment (example)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Make sure deployment happens only after the build job
+
+    steps:
+      # Step 1: Checkout the code (optional if you already do in the previous job)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up deployment (replace with your deployment logic)
+      - name: Deploy to server
+        run: |
+          echo "Deploying the application..."
+          # Add your deployment commands here
+
